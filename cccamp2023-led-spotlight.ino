@@ -15,18 +15,39 @@
 #define NUM_LEDS_IN 4 * 4
 #define NUM_RINGS 3
 #define NUM_LEDS NUM_LEDS_IN + NUM_LEDS_MIDDLE + NUM_LEDS_OUT
-#define BRIGHTNESS 64
+#define BRIGHTNESS 255
 #define LED_TYPE WS2812B
 #define COLOR_ORDER GRB
-CRGB leds[NUM_LEDS];
 
 #define UPDATES_PER_SECOND 3
+
+CRGB leds[NUM_LEDS];
+CRGB grey50;
+CRGB grey40;
+CRGB grey30;
+CRGB grey20;
+CRGB grey10;
 
 void setup()
 {
     delay(300); // power-up safety delay
     FastLED.addLeds<LED_TYPE, LED_PIN, COLOR_ORDER>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
     FastLED.setBrightness(BRIGHTNESS);
+
+    grey50 = CRGB::White;
+    grey50.fadeToBlackBy(128);
+
+    grey40 = CRGB::White;
+    grey40.fadeToBlackBy(128+25);
+
+    grey30 = CRGB::White;
+    grey30.fadeToBlackBy(128+25+25);
+
+    grey20 = CRGB::White;
+    grey20.fadeToBlackBy(200);
+
+    grey10 = CRGB::White;
+    grey10.fadeToBlackBy(228);
 }
 
 void loop()
@@ -41,18 +62,18 @@ void loop()
 }
 
 void FillLedColorSequence(uint8_t ringIndex)
-{
-    CRGB color;
+{ 
+
     if (ringIndex % NUM_RINGS == 0) {
       // color = CRGB::White
       fill_solid(&leds[0], NUM_LEDS_IN, CRGB::Black);
       fill_solid(&leds[NUM_LEDS_IN], NUM_LEDS_MIDDLE, CRGB::Black);
-      fill_solid(&leds[NUM_LEDS_IN+NUM_LEDS_MIDDLE], NUM_LEDS_OUT, CRGB::White);
+      fill_solid(&leds[NUM_LEDS_IN+NUM_LEDS_MIDDLE], NUM_LEDS_OUT, grey20);
     }
     else if (ringIndex % NUM_RINGS == 1) {
       // color = CRGB::White
       fill_solid(&leds[0], NUM_LEDS_IN, CRGB::Black);
-      fill_solid(&leds[NUM_LEDS_IN], NUM_LEDS_MIDDLE, CRGB::White);
+      fill_solid(&leds[NUM_LEDS_IN], NUM_LEDS_MIDDLE, grey40);
       fill_solid(&leds[NUM_LEDS_IN+NUM_LEDS_MIDDLE], NUM_LEDS_OUT, CRGB::Black);
     }
     else if (ringIndex % NUM_RINGS == 2) {
