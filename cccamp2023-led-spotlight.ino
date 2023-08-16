@@ -1,4 +1,8 @@
-// requires FastLED by Daniel Garcia, v3.5.0
+// ## Requirements:
+// -  FastLED by Daniel Garcia, v3.5.0
+//
+// ## Target: 
+// - LOLIN(WeMos) D1 mini Lite
 
 #include <FastLED.h>
 
