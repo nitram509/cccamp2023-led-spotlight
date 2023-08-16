@@ -1,3 +1,5 @@
+// requires FastLED by Daniel Garcia, v3.5.0
+
 #include <FastLED.h>
 
 #define LED_PIN     14
