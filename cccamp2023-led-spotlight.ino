@@ -3,6 +3,7 @@
 //
 // ## Target:
 // - LOLIN(WeMos) D1 mini Lite
+//   (You might need to install the board first https://github.com/esp8266/Arduino)
 
 #include <FastLED.h>
 
