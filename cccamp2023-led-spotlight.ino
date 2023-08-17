@@ -22,12 +22,18 @@
 
 #define UPDATES_PER_SECOND 3
 
+CRGBPalette16 currentPalette;
+TBlendType currentBlending;
+
+
 CRGB leds[NUM_LEDS];
 CRGB grey50;
 CRGB grey40;
 CRGB grey30;
 CRGB grey20;
 CRGB grey10;
+CRGB rainbow;
+
 
 void setup()
 {
@@ -49,6 +55,9 @@ void setup()
 
     grey10 = CRGB::White;
     grey10.fadeToBlackBy(228);
+
+    currentPalette = RainbowStripeColors_p;
+
 }
 
 void loop()
@@ -64,22 +73,30 @@ void loop()
 
 void FillLedColorSequence(uint8_t ringIndex)
 { 
-
+  
+    rainbow = ColorFromPalette(currentPalette, ringIndex, BRIGHTNESS, currentBlending);
     if (ringIndex % NUM_RINGS == 0) {
       // color = CRGB::White
       fill_solid(&leds[0], NUM_LEDS_IN, CRGB::Black);
       fill_solid(&leds[NUM_LEDS_IN], NUM_LEDS_MIDDLE, CRGB::Black);
-      fill_solid(&leds[NUM_LEDS_IN+NUM_LEDS_MIDDLE], NUM_LEDS_OUT, grey20);
+      // fill_solid(&leds[NUM_LEDS_IN+NUM_LEDS_MIDDLE], NUM_LEDS_OUT, grey20);
+      // color: Rainbow     
+      fill_solid(&leds[NUM_LEDS_IN+NUM_LEDS_MIDDLE], NUM_LEDS_OUT, rainbow);
+
     }
     else if (ringIndex % NUM_RINGS == 1) {
       // color = CRGB::White
       fill_solid(&leds[0], NUM_LEDS_IN, CRGB::Black);
-      fill_solid(&leds[NUM_LEDS_IN], NUM_LEDS_MIDDLE, grey40);
+      // fill_solid(&leds[NUM_LEDS_IN], NUM_LEDS_MIDDLE, grey40);
+      // color: Rainbow 
+      fill_solid(&leds[NUM_LEDS_IN], NUM_LEDS_MIDDLE, rainbow);
       fill_solid(&leds[NUM_LEDS_IN+NUM_LEDS_MIDDLE], NUM_LEDS_OUT, CRGB::Black);
     }
     else if (ringIndex % NUM_RINGS == 2) {
       // color = CRGB::White
-      fill_solid(&leds[0], NUM_LEDS_IN, CRGB::White);
+      // fill_solid(&leds[0], NUM_LEDS_IN, CRGB::White);
+      // color: Rainbow 
+      fill_solid(&leds[0], NUM_LEDS_IN, rainbow);
       fill_solid(&leds[NUM_LEDS_IN], NUM_LEDS_MIDDLE, CRGB::Black);
       fill_solid(&leds[NUM_LEDS_IN+NUM_LEDS_MIDDLE], NUM_LEDS_OUT, CRGB::Black);
     }
